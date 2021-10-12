@@ -107,3 +107,94 @@ Let's find the feature importance for our RandomForest model.
 | sex| 0.012093316542865712|
 | smoking| 0.013558390604857338|
 | time|0.3600752997474648|
+
+  2. **Biostatistics** 
+ 
+ **Pearson Correlation Coefficient.**
+ 
+ The Pearson correlation coefficient (or Pearson product-moment correlation coefficient, PCC) indicates the linear correlation between elements of two lists, showing the same elements on different positions. The absolute value of PCC generates a high value (close to 1) if the elements of the two lists have linear correlation, and a low value (close to 0) otherwise.
+ 
+| Features| PCC|
+| --------| ---|
+|    Serum creatinine |	0.294278|
+|Ejection fraction |	-0.268603|
+|Age 	|0.253729|
+|Serum sodium |	-0.195204|
+|High blodd pressure| 	0.079351|
+|Anaemia 	|0.066270|
+|Creatinine phosphokinase |	0.062728|
+|Plateles |	-0.049139|
+|Smoking |	-0.012623|
+|Sex 	|-0.004316|
+|Diabetes |	-0.001943  |   
+
+**Chi-Square Test**
+
+The chi square test (or χ2 test) between two features checks how likely an observed distribution is due to chance. A low p-value (close to 0) means that the two features have a strong relation; a high p-value (close to 1) means, instead, that the null hypothesis of independence cannot be discarded.
+
+| Feature | ChiSquare(p-value)|
+| ------- | -----------|
+|Serum creatinine |	9.988989e-01|
+|Ejection fraction |	1.196437e-91|
+|Age |	1.641847e-33|
+|Serum sodium |	1.000000e+00|
+|High blodd pressure |	9.999994e-01|
+|Anaemia |	1.000000e+00|
+|Creatinine phosphokinase 	|0.000000e+00|
+|Plateles 	|0.000000e+00|
+|Smoking |	9.999940e-01|
+|Sex |	1.000000e+00|
+|Diabetes |	1.000000e+00|
+
+**Shapiro**
+
+The Shapiro–Wilk test to check the distribution of each feature (to assess if was feature was extracted from a normal distribution).
+
+| Feature | Shapiro(p-value)|
+| --------| ------ |
+|Serum creatinine |	5.392758e-27|
+|Ejection fraction |	7.215433e-09|
+|Age 	|5.350570e-05|
+|Serum sodium| 	9.210248e-10|
+|High blodd pressure |	1.168618e-25|
+|Anaemia |	6.209964e-25|
+|Creatinine phosphokinase |	7.050336e-28|
+|Plateles |	2.883745e-12|
+|Smoking |	4.581843e-26|
+|Sex |	1.168500e-25|
+|Diabetes 	|5.115524e-25|
+
+**Mann-Whitney U-Test**
+
+The Mann–Whitney U test (or Wilcoxon rank–sum test), applied to each feature in relation to the death event target, detects whether we can reject the null hypothesis that the distribution of the each feature for the groups of samples defined by death event are the same. A low p-value of this test (close to 0) means that the analyzed feature strongly relates to death event, while a high p-value (close to 1) means the opposite.
+
+| Feature | P-value|
+| ------ | ------ |
+|Serum Creatinine |	0.000000|
+|Ejection Fraction |	0.000000|
+|Age |	0.000000|
+|Serum Sodium |	0.000000|
+|Creatinine_phosphokinase |	0.000000|
+|Platelets |	0.000000|
+|Sex |	0.000000|
+|Anaemia |	0.005386|
+|Diabetes 	|0.014107|
+|High Blood Pressure |	0.436468|
+|Smoking |	1.000000|
+
+
+## 3. Survival machine learning prediction on serum creatinine and ejection fraction alone
+
+To investigate if machine learning can precisely predict patients survival by using the top two ranked features alone. They therefore elaborated another computational pipeline with an initial phase of feature ranking, followed by a binary classification phase based on the top two features selected.
+
+All the different methods employed for feature ranking identified serum creatinine and ejection fraction as the top two features.So we then performed a survival prediction on these two features by employing three algorithms:
+
+   * Random Forests
+   * Gradient Boosting
+   * SVM radial.
+
+| Models      | Matthews correlation coefficient (MCC)  | F1-Score | Accuracy | TPR(True Positive Rate| TNR(True Negative Rate) | PR Auc | ROC Curve|
+| ------------- | ---------- | ----------- | -------------| -----------------| -------------| -----------| ------------| 
+| RandomForestClassifier |	0.286630 |	0.451613 |	0.716667 |	0.623235 |	0.623235 |	0.575877 |	0.719512|
+|XGBClassifier| 	0.302136 	|0.484848 |	0.716667 |	0.637356 |	0.637356 |	0.587907 |	0.729140|
+|SVM with Gaussian Kernel |	0.199034 |	0.307692 |	0.700000 |	0.568678 |	0.568678 |	0.515977 |	0.651476|

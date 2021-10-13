@@ -111,7 +111,7 @@ Let's find the feature importance for our RandomForest model.📈
 
   2. **Biostatistics** 📚
  
- **Pearson Correlation Coefficient.**📈
+ **Pearson Correlation Coefficient**📈
  
  The Pearson correlation coefficient (or Pearson product-moment correlation coefficient, PCC) indicates the linear correlation between elements of two lists, showing the same elements on different positions. The absolute value of PCC generates a high value (close to 1) if the elements of the two lists have linear correlation, and a low value (close to 0) otherwise.
 
